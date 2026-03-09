@@ -1,0 +1,80 @@
+@import "./tokens.css";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* Fő tartalom konténer */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-4);
+}
+
+/* Akadálymentes "Ugrás a tartalomra" link (csak fókuszáláskor látszik) */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-primary);
+    color: white;
+    padding: var(--space-2) var(--space-4);
+    z-index: 1000;
+    text-decoration: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Tipográfia */
+h1 { font-size: var(--font-xl); margin-bottom: var(--space-4); color: #1f2937; }
+h2 { font-size: var(--font-lg); margin-bottom: var(--space-3); }
+
+/* Gombok és Inputok */
+button {
+    padding: var(--space-2) var(--space-4);
+    border: none;
+    border-radius: var(--radius);
+    background: var(--color-primary);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: var(--font-md);
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: var(--shadow);
+}
+
+button:hover { background: #4f46e5; }
+button:active { transform: scale(0.95); }
+button:disabled { background: #9ca3af; cursor: not-allowed; }
+
+input {
+    padding: var(--space-3);
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius);
+    font-size: var(--font-md);
+    width: 100%;
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Reszponzív Grid */
+.grid { display: grid; gap: var(--space-4); }
+@media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
