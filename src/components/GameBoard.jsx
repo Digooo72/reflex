@@ -3,19 +3,17 @@ import ReactionTarget from "./ReactionTarget"
 import ScoreDisplay from "./ScoreDisplay"
 
 function GameBoard() {
-    // A játék lehetséges állapotai: "idle" (alap), "waiting" (piros), "ready" (zöld), "finished" (vége), "early" (túl korai)
     const [gameState, setGameState] = useState("idle")
     const [startTime, setStartTime] = useState(null)
     const [reactionTime, setReactionTime] = useState(null)
-    const [timeoutId, setTimeoutId] = useState(null) // Erre azért van szükség, hogy leállítsuk az időzítőt, ha túl korán kattint
+    const [timeoutId, setTimeoutId] = useState(null)
 
     function handleClick() {
-        // 1. Ha alapállapotban van, vagy már vége egy körnek, indítsunk újat!
         if (gameState === "idle" || gameState === "finished" || gameState === "early") {
             setGameState("waiting")
             setReactionTime(null)
 
-            const delay = Math.random() * 3000 + 1000 // 1-4 másodperc várakozás
+            const delay = Math.random() * 3000 + 1000
 
             const id = setTimeout(() => {
                 setGameState("ready")
@@ -24,19 +22,16 @@ function GameBoard() {
 
             setTimeoutId(id)
         }
-        // 2. Ha türelmetlen volt, és a piros alatt kattintott (Kiugrás)
         else if (gameState === "waiting") {
-            clearTimeout(timeoutId) // Megállítjuk a zöldre váltást
+            clearTimeout(timeoutId)
             setGameState("early")
         }
-        // 3. Ha zöld, mérjük az időt!
         else if (gameState === "ready") {
             const end = Date.now()
             const time = end - startTime
             setReactionTime(time)
             setGameState("finished")
 
-            // Eredmény mentése a LocalStorage-ba
             const newScore = { name: "Te (Saját)", score: time }
             const existingScores = JSON.parse(localStorage.getItem("reflexScores") || "[]")
             existingScores.push(newScore)
@@ -44,28 +39,61 @@ function GameBoard() {
         }
     }
 
-    // Billentyűzet (Szóköz) támogatás
     useEffect(() => {
         function handleKey(e) {
             if (e.code === "Space") {
-                e.preventDefault() // Megakadályozza az oldal görgetését
+                e.preventDefault()
                 handleClick()
             }
         }
         window.addEventListener("keydown", handleKey)
         return () => window.removeEventListener("keydown", handleKey)
-    }, [gameState, startTime, timeoutId]) // Frissítjük a függőségeket, hogy mindig a legújabb állapotot lássa
+    }, [gameState, startTime, timeoutId])
+
+    // --- ÚJ: Dinamikus háttérszín kalkulátor ---
+    function getAmbientStyle() {
+        let color1, color2;
+
+        switch (gameState) {
+            case "waiting": // Piros/Pink (Vigyázz!)
+                color1 = "rgba(255, 0, 85, 0.5)";
+                color2 = "rgba(255, 0, 85, 0.4)";
+                break;
+            case "ready": // Zöld (Most!)
+                color1 = "rgba(0, 255, 136, 0.5)";
+                color2 = "rgba(0, 255, 136, 0.4)";
+                break;
+            case "early": // Narancssárga (Hiba!)
+                color1 = "rgba(245, 158, 11, 0.3)";
+                color2 = "rgba(245, 158, 11, 0.2)";
+                break;
+            case "finished":
+            case "idle":
+            default: // Alap kék/cián állapot
+                color1 = "rgba(0, 229, 255, 0.25)";
+                color2 = "rgba(0, 229, 255, 0.15)";
+                break;
+        }
+
+        return {
+            background: `radial-gradient(circle at 30% 40%, ${color1}, transparent 50%), radial-gradient(circle at 70% 60%, ${color2}, transparent 50%)`
+        };
+    }
 
     return (
-        <section style={{ textAlign: "center", marginTop: "var(--space-4)" }}>
-            <ReactionTarget
-                state={gameState}
-                onClick={handleClick}
-            />
+        <>
+            {/* Animált, színváltó háttér, ami lefedi az egész képernyőt */}
+            <div className="game-ambient-bg" style={getAmbientStyle()}></div>
 
-            {/* Csak akkor mutatjuk az időt, ha van érvényes mérés */}
-            {gameState === "finished" && <ScoreDisplay time={reactionTime} />}
-        </section>
+            <section style={{ textAlign: "center", marginTop: "var(--space-4)", position: "relative", zIndex: 1 }}>
+                <ReactionTarget
+                    state={gameState}
+                    onClick={handleClick}
+                />
+
+                {gameState === "finished" && <ScoreDisplay time={reactionTime} />}
+            </section>
+        </>
     )
 }
 
