@@ -1,25 +1,38 @@
 function ReactionTarget({ state, onClick }) {
-    let text = "Kattints a kezdéshez!"
-    let bgColor = "var(--color-primary)" // Kék (alap)
-    let fontSize = "var(--font-xl)"
+    let text = "KATTINTS A KEZDÉSHEZ"
+    let bgColor = "var(--color-surface)"
+    let textColor = "var(--color-primary)"
+    let glow = "none"
+    let animation = "none"
+    let border = "2px solid var(--color-primary)"
 
     if (state === "waiting") {
-        text = "Várj..."
-        bgColor = "var(--color-accent)" // Piros
+        text = "VÁRJ..."
+        bgColor = "transparent"
+        textColor = "var(--color-accent)"
+        border = "2px solid var(--color-accent)"
+        animation = "pulseDanger 1.5s infinite" // A global.css-ben definiáltuk
+
     }
     else if (state === "ready") {
         text = "KATTINTS!"
-        bgColor = "var(--color-secondary)" // Zöld
+        bgColor = "var(--color-secondary)"
+        textColor = "#000" // Fekete szöveg a neon zöldön a kontrasztért
+        border = "none"
+        glow = "var(--glow-secondary)"
     }
     else if (state === "finished") {
-        text = "Kész! Kattints az újraindításhoz."
-        bgColor = "var(--color-primary)" // Kék
-        fontSize = "var(--font-md)" // Kisebb betű, hogy kiférjen a szöveg
+        text = "KÉSZ! ÚJ KÖR?"
+        bgColor = "var(--color-primary)"
+        textColor = "#000"
+        border = "none"
+        glow = "var(--glow-primary)"
     }
     else if (state === "early") {
-        text = "Túl korai! Kattints az újraindításhoz."
-        bgColor = "#f59e0b" // Narancssárga figyelmeztetés
-        fontSize = "var(--font-md)"
+        text = "TÚL KORAI!"
+        bgColor = "transparent"
+        textColor = "#f59e0b" // Narancs
+        border = "2px solid #f59e0b"
     }
 
     return (
@@ -29,24 +42,26 @@ function ReactionTarget({ state, onClick }) {
             style={{
                 width: "min(300px, 80vw)",
                 height: "min(300px, 80vw)",
-                borderRadius: "50%",
-                fontSize: fontSize,
-                fontWeight: "bold",
+                borderRadius: "var(--radius-full)",
+                fontSize: "30px",
+                fontWeight: "900",
+                letterSpacing: "3px",
                 backgroundColor: bgColor,
-                color: "white",
-                border: "none",
+                color: textColor,
+                border: border,
                 cursor: "pointer",
-                boxShadow: "var(--shadow)",
-                margin: "0 auto",
+                boxShadow: glow,
+                animation: animation,
+                margin: "40px auto",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 textAlign: "center",
-                padding: "var(--space-3)",
-                transition: "background-color 0.1s ease-out, transform 0.05s", // Gyorsabb pattanás effektus
+                transition: "all 0.1s ease-out",
+                userSelect: "none", // Ne lehessen véletlenül kijelölni a szöveget kattintáskor
+                WebkitTapHighlightColor: "transparent" // Mobilokon eltünteti a csúnya kék kattintás-kockát
             }}
-            // Gombnyomás (kattanás) vizuális effektusa
-            onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.95)'}
+            onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.92)'}
             onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >

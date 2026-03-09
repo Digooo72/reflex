@@ -7,74 +7,99 @@
 }
 
 body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background: var(--color-bg);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--color-bg);
+    /* Látványos sötét háttérátmenet */
+    background-image: radial-gradient(circle at top right, rgba(0, 229, 255, 0.05), transparent 40%),
+    radial-gradient(circle at bottom left, rgba(255, 0, 85, 0.05), transparent 40%);
     color: var(--color-text);
     line-height: 1.6;
+    min-height: 100vh;
 }
 
-/* Fő tartalom konténer */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--space-4);
 }
 
-/* Akadálymentes "Ugrás a tartalomra" link (csak fókuszáláskor látszik) */
+/* Skip link (Akadálymentesítés) */
 .skip-link {
     position: absolute;
     top: -100px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--color-primary);
-    color: white;
+    color: var(--color-bg);
     padding: var(--space-2) var(--space-4);
     z-index: 1000;
     text-decoration: none;
     border-radius: 0 0 var(--radius) var(--radius);
+    font-weight: bold;
     transition: top 0.2s;
 }
+.skip-link:focus { top: 0; }
 
-.skip-link:focus {
-    top: 0;
-}
-
-/* Tipográfia */
-h1 { font-size: var(--font-xl); margin-bottom: var(--space-4); color: #1f2937; }
+h1 { font-size: var(--font-xl); margin-bottom: var(--space-4); letter-spacing: -1px; }
 h2 { font-size: var(--font-lg); margin-bottom: var(--space-3); }
 
-/* Gombok és Inputok */
+/* Gombok alapértelmezett formázása (min 44x44px a touch-friendly UX-hez) */
 button {
+    min-height: 44px;
+    min-width: 44px;
     padding: var(--space-2) var(--space-4);
     border: none;
     border-radius: var(--radius);
-    background: var(--color-primary);
-    color: white;
+    background: var(--color-surface);
+    color: var(--color-text);
     cursor: pointer;
     font-weight: bold;
     font-size: var(--font-md);
-    transition: background 0.2s, transform 0.1s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-button:hover { background: #4f46e5; }
-button:active { transform: scale(0.95); }
-button:disabled { background: #9ca3af; cursor: not-allowed; }
+button:hover {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    box-shadow: var(--glow-primary);
+    transform: translateY(-2px);
+}
+button:active { transform: translateY(1px); }
 
+/* Inputok űrlapokhoz */
 input {
+    min-height: 44px;
     padding: var(--space-3);
-    border: 1px solid #d1d5db;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: var(--radius);
+    color: var(--color-text);
     font-size: var(--font-md);
     width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
 }
 
+/* Akadálymentes fókusz */
 :focus-visible {
     outline: 3px solid var(--color-primary);
-    outline-offset: 2px;
+    outline-offset: 4px;
 }
 
-/* Reszponzív Grid */
+/* Reszponzív Grid (3 töréspont) */
 .grid { display: grid; gap: var(--space-4); }
 @media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Neon pulzáló animáció a játékgombhoz */
+@keyframes pulseDanger {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.4); }
+    70% { box-shadow: 0 0 0 30px rgba(255, 0, 85, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); }
+}

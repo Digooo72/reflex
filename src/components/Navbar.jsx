@@ -2,7 +2,14 @@ import { NavLink, Link } from "react-router-dom"
 
 function Navbar() {
     return (
-        <header style={{ background: "white", boxShadow: "var(--shadow)", position: "sticky", top: 0, zIndex: 10 }}>
+        <header style={{
+            background: "rgba(11, 15, 25, 0.8)",
+            backdropFilter: "blur(10px)",
+            borderBottom: "1px solid rgba(255,255,255,0.05)",
+            position: "sticky",
+            top: 0,
+            zIndex: 10
+        }}>
             <nav style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -13,17 +20,33 @@ function Navbar() {
                 flexWrap: "wrap",
                 gap: "var(--space-3)"
             }}>
-                {/* Íme a kattintható logó */}
-                <Link to="/" style={{ textDecoration: "none", fontWeight: "bold", fontSize: "var(--font-lg)", color: "var(--color-primary)" }}>
-                    ⚡ ReflexPro
+                <Link to="/" style={{ textDecoration: "none", fontWeight: "900", fontSize: "var(--font-lg)", color: "var(--color-text)", letterSpacing: "1px" }}>
+                    <span style={{ color: "var(--color-primary)", textShadow: "var(--glow-primary)" }}>⚡</span> Reflex<span style={{color: "var(--color-primary)"}}>Pro</span>
                 </Link>
 
-                <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
-                    <NavLink to="/" style={({isActive}) => ({ textDecoration: "none", padding: "8px 12px", borderRadius: "8px", fontWeight: 600, color: isActive ? "var(--color-primary)" : "var(--color-text)", background: isActive ? "#e0e7ff" : "transparent" })}>Főoldal</NavLink>
-                    <NavLink to="/game" style={({isActive}) => ({ textDecoration: "none", padding: "8px 12px", borderRadius: "8px", fontWeight: 600, color: isActive ? "var(--color-primary)" : "var(--color-text)", background: isActive ? "#e0e7ff" : "transparent" })}>Játék</NavLink>
-                    <NavLink to="/leaderboard" style={({isActive}) => ({ textDecoration: "none", padding: "8px 12px", borderRadius: "8px", fontWeight: 600, color: isActive ? "var(--color-primary)" : "var(--color-text)", background: isActive ? "#e0e7ff" : "transparent" })}>Ranglista</NavLink>
-                    <NavLink to="/profile" style={({isActive}) => ({ textDecoration: "none", padding: "8px 12px", borderRadius: "8px", fontWeight: 600, color: isActive ? "var(--color-primary)" : "var(--color-text)", background: isActive ? "#e0e7ff" : "transparent" })}>Profil</NavLink>
-                    <NavLink to="/login" style={({isActive}) => ({ textDecoration: "none", padding: "8px 12px", borderRadius: "8px", fontWeight: 600, color: isActive ? "var(--color-primary)" : "var(--color-text)", background: isActive ? "#e0e7ff" : "transparent" })}>Belépés</NavLink>
+                <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap" }}>
+                    {/* Explicit útvonalak a helyes működéshez */}
+                    {[
+                        { name: 'Főoldal', path: '/' },
+                        { name: 'Játék', path: '/game' },
+                        { name: 'Ranglista', path: '/leaderboard' },
+                        { name: 'Profil', path: '/profile' },
+                        { name: 'Belépés', path: '/login' }
+                    ].map((link) => (
+                        <NavLink key={link.name} to={link.path} style={({isActive}) => ({
+                            textDecoration: "none",
+                            padding: "8px 16px",
+                            borderRadius: "var(--radius)",
+                            fontWeight: 600,
+                            fontSize: "var(--font-sm)",
+                            color: isActive ? "var(--color-bg)" : "var(--color-text-muted)",
+                            background: isActive ? "var(--color-primary)" : "transparent",
+                            boxShadow: isActive ? "var(--glow-primary)" : "none",
+                            transition: "all 0.2s"
+                        })}>
+                            {link.name}
+                        </NavLink>
+                    ))}
                 </div>
             </nav>
         </header>
