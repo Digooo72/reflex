@@ -1,16 +1,24 @@
-# React + Vite
+# ⚡ ReflexPro - Reakcióidő Tesztelő Játék
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Egy modern, sötét témájú (dark mode) React webalkalmazás, amellyel a felhasználók tesztelhetik és fejleszthetik a vizuális reakcióidejüket. A projekt Vite, React és React Router felhasználásával készült.
 
-Currently, two official plugins are available:
+## 🚀 Futtatáshoz szükséges előfeltételek
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A projekt futtatásához telepítve kell lennie a gépeden a [Node.js](https://nodejs.org/)-nek (amely tartalmazza az `npm` csomagkezelőt is).
 
-## React Compiler
+## 🛠️ Telepítés és Indítás
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Nyisd meg a terminált (vagy a parancssort) a projekt gyökérmappájában.
 
-## Expanding the ESLint configuration
+2. Telepítsd a szükséges függőségeket az alábbi paranccsal:
+   ```bash
+   npm install
+   
+3. Futtasd terminálból
+   ```bash
+   npm run dev
+Ha nem működik:
+npm run dev -- --force
+vagy először:  npm install react@18 react-dom@18 react-router-dom@6
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+4. Nyisd meg a localhostot
