@@ -146,3 +146,67 @@ input:focus {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+/* --- JÁTÉK KÉPERNYŐ GÖRGÉS LETILTÁSA MOBILON --- */
+body.no-scroll {
+    overflow: hidden;
+    touch-action: none; /* Letiltja a nagyítást és a tapintásos gesztusokat */
+    overscroll-behavior: none; /* Letiltja a "lehúzásra frissítés" (pull-to-refresh) funkciót */
+}
+
+/* --- BURGER MENÜ RESZPONZÍV STÍLUSAI --- */
+.desktop-menu {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.mobile-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    font-size: var(--font-xl);
+    cursor: pointer;
+    box-shadow: none;
+    padding: 0 var(--space-2);
+    min-width: auto;
+    min-height: auto;
+}
+
+.mobile-toggle:hover {
+    background: transparent;
+    box-shadow: none;
+    color: var(--color-primary);
+    transform: none;
+}
+
+.mobile-menu-overlay {
+    display: none;
+}
+
+/* 768px alatt (mobil és kisebb tabletek) átváltunk Burger menüre */
+@media (max-width: 768px) {
+    .desktop-menu {
+        display: none; /* Elrejtjük a nagy menüt */
+    }
+    .mobile-toggle {
+        display: block; /* Megmutatjuk a ☰ gombot */
+    }
+    .mobile-menu-overlay.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(11, 15, 25, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: var(--space-4);
+        gap: var(--space-3);
+        box-shadow: var(--shadow);
+    }
+}

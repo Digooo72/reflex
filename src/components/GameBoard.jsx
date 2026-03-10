@@ -50,6 +50,17 @@ function GameBoard() {
         return () => window.removeEventListener("keydown", handleKey)
     }, [gameState, startTime, timeoutId])
 
+    // --- ÚJ: GÖRGETÉS LETILTÁSA A JÁTÉK ALATT ---
+    useEffect(() => {
+        // Amikor a játék komponens betölt, rátesszük a no-scroll osztályt a body-ra
+        document.body.classList.add("no-scroll");
+
+        // Amikor elhagyjuk a játékot (cleanup function), levesszük róla, hogy máshol lehessen görgetni
+        return () => {
+            document.body.classList.remove("no-scroll");
+        };
+    }, []);
+
     // --- ÚJ: Dinamikus háttérszín kalkulátor ---
     function getAmbientStyle() {
         let color1, color2;
@@ -96,5 +107,7 @@ function GameBoard() {
         </>
     )
 }
+
+
 
 export default GameBoard

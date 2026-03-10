@@ -59,7 +59,8 @@ function ReactionTarget({ state, onClick }) {
                 textAlign: "center",
                 transition: "all 0.1s ease-out",
                 userSelect: "none", // Ne lehessen véletlenül kijelölni a szöveget kattintáskor
-                WebkitTapHighlightColor: "transparent" // Mobilokon eltünteti a csúnya kék kattintás-kockát
+                WebkitTapHighlightColor: "transparent", // Mobilokon eltünteti a csúnya kék kattintás-kockát
+                touchAction: "none"
             }}
             onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.92)'}
             onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
