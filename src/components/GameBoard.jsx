@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import ReactionTarget from "./ReactionTarget"
 import ScoreDisplay from "./ScoreDisplay"
+import { saveScore } from "../services/scoreServices"
 
 function GameBoard() {
     const [gameState, setGameState] = useState("idle")
@@ -8,7 +9,7 @@ function GameBoard() {
     const [reactionTime, setReactionTime] = useState(null)
     const [timeoutId, setTimeoutId] = useState(null)
 
-    function handleClick() {
+    async function handleClick() {
         if (gameState === "idle" || gameState === "finished" || gameState === "early") {
             setGameState("waiting")
             setReactionTime(null)
@@ -32,10 +33,18 @@ function GameBoard() {
             setReactionTime(time)
             setGameState("finished")
 
-            const newScore = { name: "Te (Saját)", score: time }
-            const existingScores = JSON.parse(localStorage.getItem("reflexScores") || "[]")
-            existingScores.push(newScore)
-            localStorage.setItem("reflexScores", JSON.stringify(existingScores))
+            // Megnézzük, be van-e jelentkezve valaki
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+
+            if (currentUser && currentUser.username) {
+                try {
+                    // Elküldjük a felhőbe az adatot!
+                    await saveScore(currentUser.username, time);
+                    console.log("Sikeres mentés a Firebase-be!");
+                } catch (error) {
+                    console.error("Nem sikerült a felhőbe menteni:", error);
+                }
+            }
         }
     }
 

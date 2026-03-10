@@ -10,13 +10,29 @@ function Navbar() {
         setIsMenuOpen(false);
     }, [location]);
 
-    const links = [
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    // Alap menüpontok
+    let links = [
         { name: 'Főoldal', path: '/' },
         { name: 'Játék', path: '/game' },
         { name: 'Ranglista', path: '/leaderboard' },
-        { name: 'Profil', path: '/profile' },
-        { name: 'Belépés', path: '/login' }
     ];
+
+    // Ha be van jelentkezve, látja a Profilt. Ha nincs, látja a Belépést.
+    // Ha be van jelentkezve, látja a Profilt.
+    // Ha nincs, látja a Belépést ÉS a Regisztrációt.
+    if (currentUser) {
+        links.push({ name: 'Profil', path: '/profile' });
+    } else {
+        links.push({ name: 'Belépés', path: '/login' });
+        links.push({ name: 'Regisztráció', path: '/register' }); // <-- Ez az új sor!
+    }
+
+    function handleLogout() {
+        localStorage.removeItem("currentUser");
+        window.location.href = "/"; // Frissíti az oldalt a kijelentkezéshez
+    }
 
     return (
         <header style={{
@@ -67,6 +83,21 @@ function Navbar() {
                             {link.name}
                         </NavLink>
                     ))}
+
+                    <div className="desktop-menu">
+                        {/* ... meglévő linkek map-elése ... */}
+
+                        {currentUser && (
+                            <button onClick={handleLogout} style={{
+                                background: "transparent", color: "var(--color-accent)",
+                                border: "1px solid var(--color-accent)", padding: "8px 16px",
+                                borderRadius: "var(--radius)", fontWeight: "bold", cursor: "pointer",
+                                minHeight: "auto", fontSize: "var(--font-sm)"
+                            }}>
+                                Kijelentkezés
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 {/* --- MOBIL LENYÍLÓ MENÜ (Asztalon rejtett) --- */}
@@ -86,6 +117,20 @@ function Navbar() {
                             {link.name}
                         </NavLink>
                     ))}
+                    <div className="desktop-menu">
+                        {/* ... meglévő linkek map-elése ... */}
+
+                        {currentUser && (
+                            <button onClick={handleLogout} style={{
+                                background: "transparent", color: "var(--color-accent)",
+                                border: "1px solid var(--color-accent)", padding: "8px 16px",
+                                borderRadius: "var(--radius)", fontWeight: "bold", cursor: "pointer",
+                                minHeight: "auto", fontSize: "var(--font-sm)"
+                            }}>
+                                Kijelentkezés
+                            </button>
+                        )}
+                    </div>
                 </div>
             </nav>
         </header>
