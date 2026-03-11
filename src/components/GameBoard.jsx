@@ -106,10 +106,53 @@ function GameBoard() {
             <div className="game-ambient-bg" style={getAmbientStyle()}></div>
 
             <section style={{ textAlign: "center", marginTop: "var(--space-4)", position: "relative", zIndex: 1 }}>
-                <ReactionTarget
-                    state={gameState}
-                    onClick={handleClick}
-                />
+
+                {/* --- ÚJ: Flex konténer a gombnak és a súgóknak --- */}
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "var(--space-5)", // Távolság a gomb és a súgók között
+                    flexWrap: "wrap" // Ha kicsi a képernyő (mobil), a súgók automatikusan alulra/felülre ugranak
+                }}>
+
+                    {/* Bal oldali súgó (Egér) */}
+                    <div style={{
+                        color: "var(--color-text-muted)",
+                        opacity: gameState === "idle" || gameState === "finished" ? 1 : 0,
+                        transition: "opacity 0.3s ease",
+                        fontSize: "var(--font-sm)",
+                        fontWeight: "bold",
+                        letterSpacing: "1px",
+                        pointerEvents: "none" // Ne lehessen rákattintani
+                    }}>
+                        <span style={{ fontSize: "32px", display: "block", marginBottom: "8px" }}>🖱️</span>
+                        KATTINTÁS
+                    </div>
+
+                    {/* A meglévő játékgomb */}
+                    <ReactionTarget
+                        state={gameState}
+                        onClick={handleClick}
+                    />
+
+                    {/* Jobb oldali súgó (Space) */}
+                    <div style={{
+                        color: "var(--color-text-muted)",
+                        opacity: gameState === "idle" || gameState === "finished" ? 1 : 0,
+                        transition: "opacity 0.3s ease",
+                        fontSize: "var(--font-sm)",
+                        fontWeight: "bold",
+                        letterSpacing: "1px",
+                        pointerEvents: "none"
+                    }}>
+                        <span style={{ fontSize: "32px", display: "block", marginBottom: "8px", border: "2px solid var(--color-text-muted)", borderRadius: "8px", padding: "0 8px", width: "fit-content", margin: "0 auto 8px auto" }}>
+                            SPACE
+                        </span>
+                        BILLENTYŰ
+                    </div>
+
+                </div>
 
                 {gameState === "finished" && <ScoreDisplay time={reactionTime} />}
             </section>

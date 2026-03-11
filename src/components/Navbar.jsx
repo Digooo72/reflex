@@ -36,13 +36,13 @@ function Navbar() {
 
     return (
         <header style={{
-            background: "rgba(11, 15, 25, 0.8)",
+            background: "var(--color-navbar)", // <-- Erre cseréltük
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
-            borderBottom: "1px solid rgba(255,255,255,0.05)",
+            borderBottom: "1px solid var(--color-border)", // <-- Erre cseréltük
             position: "sticky",
             top: 0,
-            zIndex: 50 // Magas z-index, hogy a lenyíló menü minden felett legyen
+            zIndex: 50
         }}>
             <nav style={{
                 display: "flex",

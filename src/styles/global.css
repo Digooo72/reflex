@@ -1,5 +1,10 @@
 @import "./tokens.css";
 
+:root {
+    --ambient-color-1: rgba(139, 92, 246, 0.4); /* Alap Lila */
+    --ambient-color-2: rgba(0, 229, 255, 0.4);  /* Alap Cián */
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -117,13 +122,15 @@ input:focus {
     left: -10%;
     width: 120vw;
     height: 120vh;
-    /* Két hatalmas, elmosódott színátmenet: egy lila és egy ciánkék */
+    /* ÚJ: Dinamikus CSS változókat használunk */
     background:
-            radial-gradient(circle at 30% 40%, rgba(139, 92, 246, 0.4), transparent 20%),
-            radial-gradient(circle at 70% 60%, rgba(0, 229, 255, 0.4), transparent 20%);
-    z-index: -1; /* Szigorúan a tartalom mögött marad */
-    pointer-events: none; /* Nem zavarja a kattintásokat */
+            radial-gradient(circle at 30% 40%, var(--ambient-color-1), transparent 25%),
+            radial-gradient(circle at 70% 60%, var(--ambient-color-2), transparent 25%);
+    z-index: -1;
+    pointer-events: none;
     animation: floatAmbient 12s ease-in-out infinite;
+    /* ÚJ: Lágy átmenet színváltáskor */
+    transition: background 0.8s ease-in-out;
 }
 
 
@@ -201,10 +208,10 @@ body.no-scroll {
         top: 100%;
         left: 0;
         width: 100%;
-        background: rgba(11, 15, 25, 0.95);
+        background: var(--color-mobile-menu); /* <-- Erre cseréltük */
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid var(--color-border); /* <-- Erre cseréltük */
         padding: var(--space-4);
         gap: var(--space-3);
         box-shadow: var(--shadow);

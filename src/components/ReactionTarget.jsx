@@ -1,5 +1,5 @@
 function ReactionTarget({ state, onClick }) {
-    let text = "KATTINTS A KEZDÉSHEZ"
+    let text = "START"
     let bgColor = "var(--color-surface)"
     let textColor = "var(--color-primary)"
     let glow = "none"
@@ -68,6 +68,9 @@ function ReactionTarget({ state, onClick }) {
         >
             {text}
         </button>
+
+
+
     )
 }
 

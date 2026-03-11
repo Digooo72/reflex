@@ -59,7 +59,7 @@ function HomePage() {
                     width: "100%",
                     margin: "0 auto",
                     padding: "var(--space-3) var(--space-4)",
-                    background: "rgba(11, 15, 25, 0.4)",
+                    background: "var(--color-funfact-bg)",
                     backdropFilter: "blur(8px)",
                     WebkitBackdropFilter: "blur(8px)",
                     borderLeft: "4px solid var(--color-primary)",
