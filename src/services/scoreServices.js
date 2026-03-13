@@ -2,6 +2,7 @@ import { db } from "../firebase";
 import { collection, addDoc, getDocs, query, orderBy, limit, where, deleteDoc, doc, updateDoc} from "firebase/firestore";
 // A Firestore kollekció (tábla) neve, ide mentjük a játékokat
 const SCORES_COLLECTION = "game_sessions";
+const AIM_COLLECTION = "aim_sessions";
 
 // 1. Eredmény mentése a felhőbe (CREATE)
 export async function saveScore(playerName, scoreMs) {
@@ -81,5 +82,32 @@ export async function updateScoreNote(scoreId, newNote) {
     } catch (error) {
         console.error("Hiba a módosításkor: ", error);
         throw error;
+    }
+}
+
+
+export async function saveAimScore(playerName, scoreMs) {
+    try {
+        const docRef = await addDoc(collection(db, AIM_COLLECTION), {
+            name: playerName,
+            score: scoreMs,
+            played_at: new Date().toISOString()
+        });
+        return docRef.id;
+    } catch (error) {
+        console.error("Hiba az aim eredmény mentésekor: ", error);
+        throw error;
+    }
+}
+
+export async function getTopAimScores(limitCount = 50) {
+    try {
+        const q = query(collection(db, AIM_COLLECTION), orderBy("score", "asc"), limit(limitCount));
+        const querySnapshot = await getDocs(q);
+        const scores = [];
+        querySnapshot.forEach((doc) => scores.push({ id: doc.id, ...doc.data() }));
+        return scores;
+    } catch (error) {
+        return [];
     }
 }

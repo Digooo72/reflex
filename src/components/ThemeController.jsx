@@ -35,8 +35,9 @@ function ThemeController() {
     const toggleTheme = () => setIsLight(!isLight);
     const cyclePreset = () => setPresetIndex((prev) => (prev + 1) % presets.length);
 
-    // Ha a Játék oldalon vagyunk, nem mutatjuk a színváltó gombot (ahogy kérted)
-    const isGamePage = location.pathname === "/game";
+    // --- ÚJ LOGIKA: Csak a Reakció Tesztnél rejtjük el a palettát ---
+    const searchParams = new URLSearchParams(location.search);
+    const isReactionGame = location.pathname === "/game" && searchParams.get("mode") === "reaction";
 
     return (
         <div style={{
@@ -49,8 +50,8 @@ function ThemeController() {
             zIndex: 9999
         }}>
 
-            {/* Ambiens Fény Váltó (Csak ha nem vagyunk a Játéknál) */}
-            {!isGamePage && (
+            {/* Ambiens Fény Váltó (Elrejtjük, ha a Reakció Teszt megy) */}
+            {!isReactionGame && (
                 <button
                     onClick={cyclePreset}
                     title="Ambiens fény váltása"

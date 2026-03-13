@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
 import PlayerRow from "./PlayerRow"
-import { getTopScores } from "../services/scoreServices"
+import { getTopScores, getTopAimScores } from "../services/scoreServices"
 
-function LeaderboardTable(){
+function LeaderboardTable({ gameMode = "reactions"}){
     const [players, setPlayers] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -18,7 +18,10 @@ function LeaderboardTable(){
         async function fetchScores() {
             try {
                 setIsLoading(true);
-                const cloudScores = await getTopScores(50); // Többet kérünk, hogy legyen miben keresni
+                // Ha a mód "reaction", a régit kéri le. Ha "aim", az újat.
+                const cloudScores = gameMode === "reaction"
+                    ? await getTopScores(50)
+                    : await getTopAimScores(50);
                 setPlayers(cloudScores);
             } catch (err) {
                 console.error("Hiba történt a betöltéskor", err);
@@ -27,7 +30,7 @@ function LeaderboardTable(){
             }
         }
         fetchScores();
-    }, [])
+    }, [gameMode]) // <-- Ha változik a mód, töltse újra!
 
     // Frissítjük az URL-t, amikor gépel vagy rendez
     function handleSearchChange(e) {
