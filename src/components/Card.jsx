@@ -4,7 +4,7 @@ function Card({ title, children, to }) {
     const cardStyle = {
         background: "var(--color-surface)",
         backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)", // Safari támogatás
+        WebkitBackdropFilter: "blur(12px)",
         border: "1px solid rgba(255, 255, 255, 0.08)",
         padding: "var(--space-4)",
         borderRadius: "var(--radius)",
@@ -33,7 +33,8 @@ function Card({ title, children, to }) {
                 }}
             >
                 <h2 style={{ color: "var(--color-text)", marginBottom: "var(--space-2)" }}>{title}</h2>
-                <p>{children}</p>
+                {/* <p> HELYETT <div> LETT: */}
+                <div>{children}</div>
             </Link>
         )
     }
@@ -41,7 +42,8 @@ function Card({ title, children, to }) {
     return (
         <article style={cardStyle}>
             <h2 style={{ color: "var(--color-text)", marginBottom: "var(--space-2)" }}>{title}</h2>
-            <p>{children}</p>
+            {/* <p> HELYETT <div> LETT: */}
+            <div>{children}</div>
         </article>
     )
 }

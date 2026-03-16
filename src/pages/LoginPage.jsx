@@ -18,11 +18,12 @@ function LoginPage() {
             const user = await loginUser(email, password);
 
             // Az egyszerűség kedvéért kinyerjük a nevet az e-mailből (pl. teszt@gmail.com -> teszt)
-            // Valós appban ezt az adatbázisból kérnénk le, de nekünk most tökéletes!
-            const fallbackUsername = user.email.split('@')[0];
+
+            // Kinyerjük a VALÓDI nevet a Firebase-ből. Ha valamiért nincs, csak akkor használjuk az e-mailt.
+            const realUsername = user.displayName || user.email.split('@')[0];
 
             localStorage.setItem("currentUser", JSON.stringify({
-                username: fallbackUsername,
+                username: realUsername, // <-- Itt már a valódit mentjük a memóriába
                 email: user.email,
                 uid: user.uid
             }));

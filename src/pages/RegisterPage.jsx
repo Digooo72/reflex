@@ -23,7 +23,7 @@ function RegisterPage() {
         try {
             setIsLoading(true);
             // 1. Firebase regisztráció
-            const user = await registerUser(email, password);
+            const user = await registerUser(email, password, username);
 
             // 2. Mivel a Firebase Email auth alapból nem kér felhasználónevet,
             // elmentjük localStorage-ba, hogy a játék/ranglista tudja, ki vagy.
