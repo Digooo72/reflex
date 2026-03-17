@@ -1,5 +1,6 @@
 # ⚡ ReflexPro - Reakció és Aim Tesztelő Webalkalmazás
 
+🌍 Éles verzió (Publikus URL): https://reflexpro.vercel.app/
 A **ReflexPro** egy modern, e-sport ihlette webes játék, amelynek célja a felhasználók reflexeinek és célzási pontosságának fejlesztése, valamint mérése. A játékosok összemérhetik tudásukat a globális ranglistán, és nyomon követhetik saját fejlődésüket a részletes profiljukon.
 
 ## 🚀 Fő funkciók
