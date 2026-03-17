@@ -1,24 +1,25 @@
-# ⚡ ReflexPro - Reakcióidő Tesztelő Játék
+# ⚡ ReflexPro - Reakció és Aim Tesztelő Webalkalmazás
 
-Egy modern, sötét témájú (dark mode) React webalkalmazás, amellyel a felhasználók tesztelhetik és fejleszthetik a vizuális reakcióidejüket. A projekt Vite, React és React Router felhasználásával készült.
+A **ReflexPro** egy modern, e-sport ihlette webes játék, amelynek célja a felhasználók reflexeinek és célzási pontosságának fejlesztése, valamint mérése. A játékosok összemérhetik tudásukat a globális ranglistán, és nyomon követhetik saját fejlődésüket a részletes profiljukon.
 
-## 🚀 Futtatáshoz szükséges előfeltételek
+## 🚀 Fő funkciók
+* **🎮 Két játékmód:** Hagyományos Reakció Teszt és 10-célpontos Céllövölde (Aim Trainer).
+* **🔒 Biztonságos Autentikáció:** Felhasználói fiókok kezelése (regisztráció, bejelentkezés) Firebase segítségével, védett útvonalakkal (Route Guards).
+* **📊 Részletes Statisztikák:** Személyes rekordok, átlagos reakcióidő, találati pontosság és meccstörténet a Profil oldalon.
+* **🏆 Globális Ranglista:** Valós idejű toplista beépített keresővel és rendezési lehetőségekkel.
+* **🎨 Testreszabhatóság:** Sötét/Világos mód váltó és 5 különböző, animált Ambiens Fény paletta (Theme Controller).
 
-A projekt futtatásához telepítve kell lennie a gépeden a [Node.js](https://nodejs.org/)-nek (amely tartalmazza az `npm` csomagkezelőt is).
+## 🛠️ Használt Technológiák
+* **Frontend:** React (Vite), React Router DOM
+* **Backend & Adatbázis:** Firebase (Firestore NoSQL, Authentication)
+* **Tesztelés:** Vitest (Unit tesztek), Cypress (E2E tesztek)
+* **Stílusozás:** CSS Custom Properties (Design tokenek), Mobile-first reszponzív layout
 
-## 🛠️ Telepítés és Indítás
+## 💻 Lokális futtatás lépései
 
-1. Nyisd meg a terminált (vagy a parancssort) a projekt gyökérmappájában.
+Ha a saját gépeden szeretnéd futtatni a projektet, kövesd az alábbi lépéseket:
 
-2. Telepítsd a szükséges függőségeket az alábbi paranccsal:
+1. **Nyisd meg a projekt mappáját** egy terminálban (pl. VS Code / WebStorm terminal).
+2. **Telepítsd a függőségeket** az alábbi paranccsal:
    ```bash
    npm install
-   
-3. Futtasd terminálból
-   ```bash
-   npm run dev
-Ha nem működik:
-npm run dev -- --force
-vagy először:  npm install react@18 react-dom@18 react-router-dom@6
-
-4. Nyisd meg a localhostot
