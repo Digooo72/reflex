@@ -2,7 +2,6 @@
 
 Ez a dokumentum a ReflexPro webalkalmazás fejlesztése során az AI-val (Google Gemini) folytatott interakciókat, promptokat, mérnöki döntéseket és a felmerült problémák kezelését mutatja be. A napló hűen tükrözi a projekt fejlesztési ívét a három fő mérföldkőn keresztül.
 
-## 1. Fejlesztési promptok és AI válaszok (A projekt íve)
 
 ---
 
@@ -65,6 +64,8 @@ Ez a dokumentum a ReflexPro webalkalmazás fejlesztése során az AI-val (Google
 * **AI Válasza:** Generált egy alap `spec.cy.ts` fájlt a `cy.visit('/')` és `cy.get('button').click()` parancsokkal.
 * **Döntés:** 🟡 **Módosítva.** Az AI által írt `cy.wait(3000)` anti-pattern a Cypress-ben. Helyette módosítottam a tesztet úgy, hogy egy adott UI elem (pl. a felvillanó inger) megjelenésére várjon dynamikusan (`cy.get('.bg-green-600').should('be.visible')`).
 
+---
+## 1. Fejlesztési promptok és AI válaszok (A projekt íve)
 ---
 
 ### 1. Mérföldkő: Specifikáció, UI és megjelenés
