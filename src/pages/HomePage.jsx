@@ -35,7 +35,7 @@ function HomePage() {
                     textShadow: "0 0 20px rgba(139, 92, 246, 0.5)",
                     marginBottom: 0
                 }}>
-                    Üdvözöl a Reflex Teszt Játék!
+                    Üdvözöl a ReflexPro!
                 </h1>
 
                 {/* --- KÁRTYÁK FELSŐ SORA --- */}
